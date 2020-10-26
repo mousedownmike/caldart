@@ -10,6 +10,16 @@ The current CalDART site is built with [WordPress](https://wordpress.org/) and t
  * The page layout is not "responsive" so it doesn't adapt well to mobile devices.
  * Page generation and delivery is slow. 
 
+## Definitions
+
+ - Responsive Design
+ - Static Site Generator
+ - Source Code Control / Git
+ - Continuous Integration / Continuous Delivery
+ - Object Storage
+ - Content Delivery Network
+ - Serverless
+
 ## Proposed Changes
 
 The changes proposed include using a static site generator with responsive HTML templates and a content delivery network \(CDN\).
