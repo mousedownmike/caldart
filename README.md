@@ -49,15 +49,42 @@ The general appearance of the site should be reminiscent of the current design b
 
 ### Content Development
 
-The bulk of the work involved in proposal is concerned with how content is developed and delivered to viewers. The basic workflow is:
+The bulk of the work involved in proposal is concerned with how content is developed and delivered to viewers. The basic content development workflow is:
 1. A content editor makes changes to files and reviews those changes on their computer using a local copy of the static site generator.
 1. When the changes are ready to be deployed, they are committed to a Git repository and a Pull Request is made.
 1. The Pull Request triggers a Continuous Delivery action to generate a new version of the site that is deployed to a preview location.
 1. When the Pull Request is approved, the content is merged into the primary branch.  This triggers a Continuous Delivery action to regenerate the site and save the generated files in an Object Store.
 
+The proposed tools for this workflow are:
+- [Hugo](https://gohugo.io) - Hugo is a free and Open Source Static Site Generator that supports local development, custom templates and fast content generation.
+- [GitHub](https://github.com) - GitHub has become the leader in Git repository hosting. It is owned by Microsoft and provides free tiers that will likely satisfy all of the requirements for the CalDART Git repository needs.  In addition to Git hosting, [GitHub Actions](https://github.com/features/actions) may satisfy the needs of the Continous Delivery tools.
+- [AWS CodePipeline](https://aws.amazon.com/codepipeline/) - CodePipeline is the "pay as you go" Continuous Delivery service provided by Amazon Web Services. Depending on costs and integration requirements, CodePipeline may be used as the Continuous Delivery tool.
+- [AWS Simple Storage Service \(S3\)](https://aws.amazon.com/s3/) - S3 is the industry standard object storage service.  It will provide the cost effective, reliable storage for the generated CalDART site.
+
 ### Content Delivery
 
-1. 
+To improve performance, security and reliablity, content stored in the Object Store is delivered through a Content Delivery Network. With a CDN in place, a page request is satisfied with the following flow:
+1. A browser makes a request for a caldart.org resource \(i.e. an HTML page, image, etc...\).
+1. When the browser retrieves the internet address for caldart.org, it receives the address of the nearest available node in the CDN.
+1. The resource request is communicated to the CDN node.
+1. The CDN node looks for the resource in its local cache. If the resource is found, it is immediately returned to the browser.
+1. If the CDN does not find the resources in its local cache, it retrieves the resource from the Object Store.
+1. When the CDN receives the resource from the Object Store, it returns it to the browser and stores a local copy that it can use for future requests.
+
+The proposed tools for this workflow are:
+- [AWS Route 53]() -
+- [AWS CloudFront]() -
+
+
+### Additional Tools
+
+- SErverless
+- Terraform
+
+## Future Work
+
+## Continuity of Service
+
 
 The proposed changes
 Design, Management, Delivery
