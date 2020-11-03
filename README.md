@@ -28,7 +28,7 @@ The proposed solution involves several technical components that require some de
 -   **Serverless** - Serverless is a common marketing term that refers to a service where the provider manages all of the server resources and customers provide a single function that they want to run. Customers only pay for the time and resources used when their function is executing. This can significantly reduce operating costs by having the provider manage software and security updates and by only paying for server resources when they're being used.
 -   **Infrastructure as Code** - Infrastructure as Code is a methodology where infrastructure changes (e.g. databases, servers, domains, etc...) are managed through configuration files that are tracked for changes. This reduces the problems encountered when a change is made in an administrative console and subsequently forgotten. New environments and systems can be brought up with the execution of a single command as opposed to following a multi-page document of error-prone instructions.
 
-The next section describes how these terms can come together to provide an improved experience with CalDART.org.
+The next section describes how these terms can come together to provide an improved CalDART.org experience.
 
 ## Proposal
 
@@ -40,19 +40,19 @@ The current site is laid out with a header, content area, and footer. The header
 
 The general layout and site organization will be maintained but simplified with the following design changes:
 
--   Regenerate logos using SVG to support scaling.
--   Move non CalDART Logos (DART, CalPilots) to the footer.
--   Move infrequently used navigation to the footer.
--   Transition the header navigation to a collapsible menu when viewed on smaller screens.
--   Remove the search field and allow the main content to consume all of the content area.
--   Update fonts, spacing, and colors of the content to conform to content accessibility guidelines.
--   Update the footer to contain useful links and attributions (e.g. Cal Pilots).
+-   Logos will be regenerated using SVG to support scaling.
+-   Non CalDART Logos (DART, CalPilots) will be moved to the footer.
+-   Infrequently used navigation will be moved to the footer.
+-   The header navigation will transition to a collapsible menu when viewed on smaller screens.
+-   The search field will be removed allowing the main content to consume the full width of the page.
+-   Fonts, spacing, and colors will be updated to conform to content accessibility guidelines.
+-   The footer will be updated to contain useful links and attributions (e.g. Cal Pilots).
 
 The general appearance of the site should be reminiscent of the current design but the fundamental page templates will be completely new. These new templates will follow modern guidelines for building responsive and accessible sites.
 
 ### Content Development
 
-The bulk of the work involved in the proposal is concerned with how content is developed and delivered to viewers. The basic content development workflow is:
+The bulk of the work involved in this proposal is concerned with how content is developed and delivered to viewers. The basic content development workflow is:
 
 1.  A content editor makes changes to files and reviews those changes on their computer using a local copy of the static site generator.
 2.  When the changes are ready to be deployed, they are committed to a Git repository and a Pull Request is made.
@@ -84,7 +84,7 @@ The proposed tools for this workflow are:
 
 ### Infrastructue as Code
 
-As proposed, the system relies heavily on existing software and services maintained by third parties such as Microsoft and Amazon. This dramatically reduces the maintenance overhead, improves reliability, and is likely to reduce operating costs. However, managing the configuration of the various services can be complicated, error-prone, and difficult to track if done manually. This proposal calls for the use of Infrastructure as Code tools that can be used to manage these services in a well documented, repeatable fashion across providers.
+As proposed, the system relies heavily on existing software and services maintained by third parties such as Microsoft and Amazon. This dramatically reduces the maintenance overhead, improves reliability, and is likely to reduce operating costs. However, managing the configuration of the various services can be complicated, error-prone, and difficult to track if done manually. This proposal calls for the use of Infrastructure as Code tools that manage these services in a well documented, repeatable fashion across providers.
 
 The proposed Infrastructure as Code tool is:
 
@@ -96,7 +96,7 @@ This proposal does not account for migrating the membership renewal process to n
 
 ## About The Author
 
-My name is Mike Dalrymple and I'm a software engineer based in San Luis Obispo. I've been developing web based software for over 20 years.  My most recent company was sold to Comcast in 2016 and I've been working on a new General Aviation focues project for the past two years.  I have a fair bit of experience with the technologies mentioned in this proposal.  My personal site [mikedalrymple.com][12] is built with most of the proposed tools and should provide a great starting point for this project.
+My name is Mike Dalrymple and I'm a software engineer based in San Luis Obispo. I've been developing web based software for over 20 years.  My most recent company was sold to Comcast in 2016 and I've been working on a new General Aviation focued project for the past two years.  I have a fair bit of experience with the technologies mentioned in this proposal.  My personal site [mikedalrymple.com][12] is built with most of the proposed tools and should provide a great starting point for this project.
 
 [1]: https://wordpress.org/
 [2]: https://civicrm.org/home
