@@ -1,18 +1,19 @@
-# CalDART Web Proposal
+# CalDART Web Upgrade Proposal
 
-This document proposes an appropach to improving the perormance and maintainability of the CalDART.org web site.
-
+This document proposes an upgrade of the CalDART.org web site to improve performance, usability and reduce maintenance overhead.
 
 ## Current Site
 
-The current CalDART site is built with [WordPress](https://wordpress.org/) and the [CiviCRM](https://civicrm.org/home) platform. Some deficiencies with the current implementation include:
+The current CalDART site is built with [WordPress](https://wordpress.org/) and the [CiviCRM](https://civicrm.org/home) platform. From an outisider's perspective the current seems to suffer from the following issues:
  * The CiviCRM / WordPress implementation requires a server that requires regular updates.
  * The page layout is not "responsive" so it doesn't adapt well to mobile devices.
- * Page generation and delivery can be slow (4-5 seconds). 
+ * Page generation and delivery can be slow (4-5 seconds).
+
+The system proposed in this document aims to resolve these an other issues.
 
 ## Definitions
 
-The proposed solution involves a number of technical components that require some definition.  The purpose of this section is to provide general definitions and explanations for the terms and techologies that will be elaborated on in the proposal section.   
+The proposed solution involves a number of technical components that require some definition. The purpose of this section is to provide general definitions and explanations for the terms and techologies that will be elaborated on in the proposal section.   
 
  - **Responsive Design** - Responsive Design generally refers to designing web pages in a way that permits page code to "respond" or change to the type of device the page is being rendered on.  With Responsive Design, you create a single HTML page and set of Cascading Style Sheets (CSS) for each page "type" you have.  Depending on the type of page and the device, the layout of the content will change.  This eliminate the need to manage separate content and designs for each supported device type.
  - **Scalable Vector Graphics** - Scalable Vector Graphics \(SVG\) are images that can be drawn my browsers using vector commands \(like strokes of a brush\) as opposed to the placement of pixels. SVG assets are able to scale up and down to appropriately fit the device where they are being drawn.
@@ -63,7 +64,7 @@ The proposed tools for this workflow are:
 
 ### Content Delivery
 
-To improve performance, security and reliablity, content stored in the Object Store is delivered through a Content Delivery Network. With a CDN in place, a page request is satisfied with the following flow:
+To improve performance, security and reliablity, content stored in the Object Store will be delivered through a Content Delivery Network. With a CDN in place, a page request is satisfied with the following flow:
 1. A browser makes a request for a caldart.org resource \(i.e. an HTML page, image, etc...\).
 1. When the browser retrieves the internet address for caldart.org, it receives the address of the nearest available node in the CDN.
 1. The resource request is communicated to the CDN node.
@@ -72,34 +73,18 @@ To improve performance, security and reliablity, content stored in the Object St
 1. When the CDN receives the resource from the Object Store, it returns it to the browser and stores a local copy that it can use for future requests.
 
 The proposed tools for this workflow are:
-- [AWS Route 53]() -
-- [AWS CloudFront]() -
+- [AWS Route 53](https://aws.amazon.com/route53/) - Route 53 is a Domain Name System \(DNS\) service provided by Amazon Web Services.  DNS is the service that allows computers to resolve network addresses from named addresses like caldart.org.  The CDN must be fully integrated with the DNS service so the address of an appropriate CDN node can be used. 
+- [AWS CloudFront](https://aws.amazon.com/cloudfront/) - CloudFront is a high performance Content Delivery Network operated by Amazon Web Services. When integrated with other AWS solutions \(S3, Route 53, and others\), CloudFront is a cost effective and secure CDN solution. 
 
 
-### Additional Tools
+### Infrastructue as Code
 
-- SErverless
-- Terraform
+As proposed, the system relies heavily on existing software and services maintained by third parties such as Microsoft and Amazon.  This dramatically reduces the maintenance overhead, improves reliability and is likely to reduce operating costs.  However, managing the configuration of the various services can be complicated, error-prone and difficult to track if done manually. This proposal calls for the use of Infrastructure as Code tools that can be used to manage these services in a well documented, repeatable fashion across providers.  
+
+The proposed Infrastructure as Code tool is:
+- [Terraform](https://www.terraform.io) - Terrafrom by Hashicorp is a leading open-source tool that supports Infrastructure as Code processes.  For the purposes of this proposal, it will be used to manage GitHub and AWS resources
 
 ## Future Work
 
-## Continuity of Service
-
-
-The proposed changes
-Design, Management, Delivery
-
-The changes proposed include using a static site generator with responsive HTML templates and a content delivery network \(CDN\).
-
-A [Static Site Generator](https://gohugo.io/about/benefits/) merges content with templates to generate static HTML files that are deployed to a hosting provider. These files only need to be generated once each time content is published to the site. Unlike WordPress, where the content is generated each time a page is requested.
-
-There are [many site generators](https://jamstack.org/generators/) available. The author has the most experience with [Hugo](https://gohugo.io) so that is the system being proposed. In addition to the Site Generator, services are needed for source control, deployment automation, and content delivery.
-
-[GitHub](https://github.com/) is a service that provides hosted [Git](https://git-scm.com/) version control services. The content and templates for the CalDART site will be stored in the version control system.
-
-As content is added to the Git repository, it can be reviewed through a system of [Pull Requests](https://docs.github.com/en/free-pro-team@latest/github/collaborating-with-issues-and-pull-requests/about-pull-requests).  Once a Pull Request is approved, automated tools will process the content through Hugo and store the generated pages.  
-
-The Hugo automation can be run through [GitHub Actions](https://github.com/features/actions) or Amazon Web Service's (AWS) [CodePipeline](https://aws.amazon.com/codepipeline/).  Either of these tools, will be triggered by changes in the GitHub content, process the changes, and store the generated content or send a notification if there was an error.
-
-The generated content can be stored with a number of services but one of the most cost effective and reliable services is the AWS [Simple Storage Service \(S3\)](https://aws.amazon.com/s3/).  S3 also provides full integration with the AWS [CloudFront](https://aws.amazon.com/cloudfront/) service.  CloudFront is th recommended CDN.  The CDN improves content delivery performance by serving the static web pages from a network of servers that cache content.
+This proposal does not account for migrating the membership renewal process to new systems.  Without greater visibility into the workflows, data and systems involved, it is difficult to propose a viable replacement.  However, the use of Stripe as a payment processor helps reduce the complexity of an integration and it is hoped that the existing system could be temporarily placed in the context the new site \(i.e. a new window or linked to from the new site\).  As more information becomes available a more comprehensive memebership management system could be developed.
 
